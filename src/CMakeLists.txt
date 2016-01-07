@@ -16,9 +16,18 @@ target_include_directories(
   ${SQLITE_INCLUDE_DIR}
   )
 
-target_compile_options(
+find_library(
+  SQLITE_LIBRARIES
+  sqlite3
+  HINTS "${SQLITE_INCLUDE_DIR}/../"
+  PATH_SUFFIXES "lib" "lib/Debug" "lib/Release"
+  )
+
+target_link_libraries(
   sqlpp11-connector-sqlite3
   PUBLIC
-  $<$<CXX_COMPILER_ID:MSVC>:/Za>
+  ${SQLITE_LIBRARIES}
   )
+
+message(STATUS "SQLITE_LIBRARIES: ${SQLITE_LIBRARIES}")
 install(TARGETS sqlpp11-connector-sqlite3 DESTINATION lib)

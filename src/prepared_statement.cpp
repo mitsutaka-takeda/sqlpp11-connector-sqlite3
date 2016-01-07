@@ -75,7 +75,7 @@ namespace sqlpp
     prepared_statement_t::prepared_statement_t(std::shared_ptr<detail::prepared_statement_handle_t>&& handle)
         : _handle(std::move(handle))
     {
-      if (_handle and _handle->debug)
+      if (_handle && _handle->debug)
         std::cerr << "Sqlite3 debug: Constructing prepared_statement, using handle at " << _handle.get() << std::endl;
     }
 
@@ -93,7 +93,7 @@ namespace sqlpp
                   << " at index: " << index << ", being " << (is_null ? "" : "not ") << "null" << std::endl;
 
       int result;
-      if (not is_null)
+      if (!is_null)
         result = sqlite3_bind_int(_handle->sqlite_statement, static_cast<int>(index + 1), *value);
       else
         result = sqlite3_bind_null(_handle->sqlite_statement, static_cast<int>(index + 1));
@@ -107,7 +107,7 @@ namespace sqlpp
                   << ", being " << (is_null ? "" : "not ") << "null" << std::endl;
 
       int result;
-      if (not is_null)
+      if (!is_null)
         result = sqlite3_bind_double(_handle->sqlite_statement, static_cast<int>(index + 1), *value);
       else
         result = sqlite3_bind_null(_handle->sqlite_statement, static_cast<int>(index + 1));
@@ -121,7 +121,7 @@ namespace sqlpp
                   << (is_null ? "" : "not ") << "null" << std::endl;
 
       int result;
-      if (not is_null)
+      if (!is_null)
         result = sqlite3_bind_int64(_handle->sqlite_statement, static_cast<int>(index + 1), *value);
       else
         result = sqlite3_bind_null(_handle->sqlite_statement, static_cast<int>(index + 1));
@@ -135,7 +135,7 @@ namespace sqlpp
                   << (is_null ? "" : "not ") << "null" << std::endl;
 
       int result;
-      if (not is_null)
+      if (!is_null)
         result = sqlite3_bind_text(_handle->sqlite_statement, static_cast<int>(index + 1), value->data(),
                                    static_cast<int>(value->size()), SQLITE_STATIC);
       else
@@ -150,7 +150,7 @@ namespace sqlpp
                   << " at index: " << index << ", being " << (is_null ? "" : "not ") << "null" << std::endl;
 
       int result;
-      if (not is_null)
+      if (!is_null)
       {
         std::ostringstream os;
         const auto ymd = ::date::year_month_day{*value};
@@ -173,7 +173,7 @@ namespace sqlpp
                   << " at index: " << index << ", being " << (is_null ? "" : "not ") << "null" << std::endl;
 
       int result;
-      if (not is_null)
+      if (!is_null)
       {
         const auto dp = ::date::floor<::date::days>(*value);
         const auto time = date::make_time(::date::floor<::std::chrono::milliseconds>(*value - dp));

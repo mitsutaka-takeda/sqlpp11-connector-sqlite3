@@ -24,6 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <cctype>
 #include <iostream>
 #include <vector>
 #include <date.h>  // Howard Hinnant's date library
@@ -37,7 +38,7 @@ namespace sqlpp
   {
     bind_result_t::bind_result_t(const std::shared_ptr<detail::prepared_statement_handle_t>& handle) : _handle(handle)
     {
-      if (_handle and _handle->debug)
+      if (_handle && _handle->debug)
         std::cerr << "Sqlite3 debug: Constructing bind result, using handle at " << _handle.get() << std::endl;
     }
 
@@ -89,14 +90,14 @@ namespace sqlpp
         {
           if (digitFlag)
           {
-            if (not std::isdigit(*text))
+            if (!std::isdigit(*text))
             {
               return false;
             }
           }
           else
           {
-            if (std::isdigit(*text) or *text == '\0')
+            if (std::isdigit(*text) || *text == '\0')
             {
               return false;
             }
@@ -180,7 +181,7 @@ namespace sqlpp
         return;
       }
       const auto ms_string = time_string + 9;
-      if (check_digits(ms_string, ms_digits) and ms_string[4] == '\0')
+      if (check_digits(ms_string, ms_digits) && ms_string[4] == '\0')
       {
         *value += ::std::chrono::milliseconds(std::atoi(ms_string + 1));
       }
