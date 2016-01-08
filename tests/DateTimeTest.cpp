@@ -56,18 +56,18 @@ namespace
 namespace sql = sqlpp::sqlite3;
 int main()
 {
-  sql::connection_config config;
-  config.path_to_database = ":memory:";
-  config.flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
-  config.debug = true;
+	sql::connection_config config;
+	config.path_to_database = ":memory:";
+	config.flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
+	config.debug = true;
 
-  sql::connection db(config);
-  db.execute(R"(CREATE TABLE tab_date_time (
+	sql::connection db(config);
+	db.execute(R"(CREATE TABLE tab_date_time (
 		col_day_point DATE,
 			col_time_point DATETIME
 			))");
 
-  TabDateTime tab;
+	TabDateTime tab{};
 
   try
   {

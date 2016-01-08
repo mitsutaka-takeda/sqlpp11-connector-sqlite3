@@ -53,7 +53,7 @@ int main()
 		omega bigint(20) DEFAULT NULL
 			))");
 
-  TabSample tab;
+  TabSample tab{};
 
   // clear the table
   db(remove_from(tab).where(true));

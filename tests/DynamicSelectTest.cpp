@@ -55,7 +55,7 @@ int main()
 			gamma bool DEFAULT NULL\
 			)");
 
-  TabSample tab;
+  TabSample tab{};
 
   auto i = insert_into(tab).columns(tab.beta, tab.gamma);
   i.values.add(tab.beta = "rhabarbertorte", tab.gamma = false);
