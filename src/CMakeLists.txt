@@ -17,16 +17,24 @@ target_include_directories(
   )
 
 find_library(
-  SQLITE_LIBRARIES
+  SQLITE_RELEASE_LIBRARY
   sqlite3
   HINTS "${SQLITE_INCLUDE_DIR}/../"
-  PATH_SUFFIXES "lib" "lib/Debug" "lib/Release"
+  PATH_SUFFIXES "lib" "lib/Release"
+  )
+
+find_library(
+  SQLITE_DEBUG_LIBRARY
+  sqlite3
+  HINTS "${SQLITE_INCLUDE_DIR}/../"
+  PATH_SUFFIXES "lib" "lib/Debug"
   )
 
 target_link_libraries(
   sqlpp11-connector-sqlite3
   PUBLIC
-  ${SQLITE_LIBRARIES}
+  debug     ${SQLITE_DEBUG_LIBRARY}
+  optimized ${SQLITE_RELEASE_LIBRARY}
   )
 
 message(STATUS "SQLITE_LIBRARIES: ${SQLITE_LIBRARIES}")
