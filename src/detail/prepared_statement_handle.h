@@ -45,9 +45,22 @@ namespace sqlpp
         }
 
         prepared_statement_handle_t(const prepared_statement_handle_t&) = delete;
-        prepared_statement_handle_t(prepared_statement_handle_t&&) = default;
         prepared_statement_handle_t& operator=(const prepared_statement_handle_t&) = delete;
-        prepared_statement_handle_t& operator=(prepared_statement_handle_t&&) = default;
+
+        prepared_statement_handle_t(prepared_statement_handle_t&& o)
+          : sqlite_statement(o.sqlite_statement),
+            debug(o.debug) {
+          o.sqlite_statement = nullptr;
+        }
+
+        prepared_statement_handle_t&
+        operator=(prepared_statement_handle_t&& o) {
+          if(this != &o) {
+            std::swap(sqlite_statement, o.sqlite_statement);
+            std::swap(debug, o.debug);
+          }
+          return *this;
+        }
 
         ~prepared_statement_handle_t()
         {
