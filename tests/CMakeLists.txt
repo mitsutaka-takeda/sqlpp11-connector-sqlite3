@@ -2,6 +2,7 @@ macro (build_and_run arg)
 	# Add headers to sources to enable file browsing in IDEs
 	add_executable(Sqlpp11Sqlite3${arg} ${arg}.cpp ${sqlpp_headers})
 	target_link_libraries(Sqlpp11Sqlite3${arg} sqlpp11-connector-sqlite3)
+	target_include_directories(Sqlpp11Sqlite3${arg} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 	add_test(Sqlpp11Sqlite3${arg} Sqlpp11Sqlite3${arg})
 endmacro ()
 

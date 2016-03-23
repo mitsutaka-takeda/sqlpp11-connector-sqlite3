@@ -43,17 +43,18 @@ if(NOT EXISTS ${DATE_INCLUDE_DIR}/date.h)
   message(SEND_ERROR "Can't find date.h in ${DATE_INCLUDE_DIR}")
 endif()
 
-set(SQLPP11_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../sqlpp11/include" CACHE FILEPATH "Path to sqlpp11 includes")
-
-if(NOT EXISTS ${SQLPP11_INCLUDE_DIR}/sqlpp11/exception.h)
-  message(SEND_ERROR "Can't find header.h in ${SQLPP11_INCLUDE_DIR}")
+if(NOT TARGET sqlpp11)
+  add_subdirectory(../sqlpp11 "${CMAKE_BINARY_DIR}/sqlpp11")
 endif()
 
-message(SEND_MESSAGE "including sqlpp11 from ${SQLPP11_INCLUDE_DIR}")
-include_directories("${SQLPP11_INCLUDE_DIR}")
+if(NOT TARGET sqlite3)
+  add_subdirectory(../sqlite "${CMAKE_BINARY_DIR}/sqlite")
+endif()
+
 include_directories("${DATE_INCLUDE_DIR}")
-set(include_dir "${PROJECT_SOURCE_DIR}/include")
-file(GLOB_RECURSE sqlpp_headers ${include_dir}/*.h ${SQLPP11_INCLUDE_DIR}/*.h)
+
+file(GLOB_RECURSE sqlpp_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+
 include_directories(${include_dir})
 add_subdirectory(src)
 add_subdirectory(tests)
