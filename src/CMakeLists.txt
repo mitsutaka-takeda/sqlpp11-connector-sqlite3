@@ -1,5 +1,6 @@
 add_library(
   sqlpp11-connector-sqlite3
+  STATIC
   connection.cpp
   bind_result.cpp
   prepared_statement.cpp
@@ -18,7 +19,7 @@ target_link_libraries(
   )
 target_include_directories(
   sqlpp11-connector-sqlite3
-  PRIVATE
+  PUBLIC
   ${PROJECT_SOURCE_DIR}/include
   )
 target_compile_options(
